@@ -36,5 +36,39 @@ int	init_param(t_param *param, int argc, char *argv[])
 		param->max_eat = ft_atoi(argv[5]);
 	}
 	param->dead = 0;
+	pthread_mutex_init(&(param->m_log), NULL);
+	pthread_mutex_init(&(param->m_dead), NULL);
 	return (0);
+}
+
+int	init_philo(t_param *param, t_philo *philo, t_fork *fork)
+{
+	philo = malloc(sizeof(t_phil) * param->number_of_philosopher);
+	if (!philo)
+		return (1);
+	fork = malloc (sizeof(t_fork) * param->number_of_philosopher);
+	if (!fork)
+	{
+		free(philo);
+		return (1);
+	}
+	init_philo_param(philo[i], fork, param);
+}
+
+init_philo_param(t_param *param, t_fork *fork, t_philo *philo)
+{
+	while (i < number_of_philosopher)
+	{
+		philo[i]->param = param;
+		philo[i]->pos	= i;
+		philo[i]->n_eat = 0;
+		philo[i]->right_fork = fork[i];
+		philo[i]->right_fork_use = 0;
+		philo[i]->left_fork_use = 0;
+		if (i == param->number_of_philosopher - 1)
+			philo[i]->left_fork = fork[0];
+		else
+			philo[i]->left_fork = fork[i + 1];
+		i++;
+	}
 }

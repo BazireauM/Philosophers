@@ -15,8 +15,12 @@
 int main(int argc, char *argv[])
 {
 	t_param	param;
+	t_philo	*philo;
+	t_fork	*fork;
 
 	if (init_param(&param, argc, argv) == 1)
+		return (1);
+	if (init_philo(&param, philo, fork) == 1)
 		return (1);
 	printf("%d\n", param.number_of_philosopher);
 	printf("%d\n", param.time_to_die);
