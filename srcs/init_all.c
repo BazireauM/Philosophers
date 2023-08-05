@@ -6,7 +6,7 @@
 /*   By: mbazirea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 23:07:25 by mbazirea          #+#    #+#             */
-/*   Updated: 2023/07/29 23:51:51 by mbazirea         ###   ########.fr       */
+/*   Updated: 2023/08/05 04:31:01 by mbazirea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,45 @@ int	init_param(t_param *param, int argc, char *argv[])
 	return (0);
 }
 
-int	init_philo(t_param *param, t_philo *philo, t_fork *fork)
+int	init_philo(t_param *param, t_philo **philo, t_fork **fork)
 {
-	philo = malloc(sizeof(t_phil) * param->number_of_philosopher);
+	*philo = malloc(sizeof(t_philo) * param->number_of_philosopher);
 	if (!philo)
 		return (1);
-	fork = malloc (sizeof(t_fork) * param->number_of_philosopher);
+	*fork = malloc (sizeof(t_fork) * param->number_of_philosopher);
 	if (!fork)
 	{
 		free(philo);
 		return (1);
 	}
-	init_philo_param(philo[i], fork, param);
+	init_philo_param(param, fork, philo);
+	return (0);
 }
 
-init_philo_param(t_param *param, t_fork *fork, t_philo *philo)
+int	init_philo_param(t_param *param, t_fork **fork, t_philo **philo)
 {
-	while (i < number_of_philosopher)
+	int		i;
+	t_philo	*test;
+
+	i = 0;
+	while (i < param->number_of_philosopher)
 	{
-		philo[i]->param = param;
-		philo[i]->pos	= i;
-		philo[i]->n_eat = 0;
-		philo[i]->right_fork = fork[i];
-		philo[i]->right_fork_use = 0;
-		philo[i]->left_fork_use = 0;
+		test = &(*philo)[i];
+		test->param = param;
+		test->id = i;
+		test->n_eat = 0;
+		test->last_eat = 0;
+		test->right_fork_use = 0;
+		test->left_fork_use = 0;
+		test->right_fork = &((*fork)[i]);
 		if (i == param->number_of_philosopher - 1)
-			philo[i]->left_fork = fork[0];
+			test->left_fork = &((*fork)[0]);
 		else
-			philo[i]->left_fork = fork[i + 1];
+			test->left_fork = &((*fork)[i + 1]);
+		test->left_fork->use = 0;
+		pthread_mutex_init(&(test->left_fork->lock), NULL);
+		pthread_mutex_init(&(test->m_last_eat), NULL);
 		i++;
 	}
+	return (0);
 }
