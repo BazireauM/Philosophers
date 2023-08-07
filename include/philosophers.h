@@ -6,7 +6,7 @@
 /*   By: mbazirea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:36:43 by mbazirea          #+#    #+#             */
-/*   Updated: 2023/08/06 05:42:26 by mbazirea         ###   ########.fr       */
+/*   Updated: 2023/08/07 06:20:04 by mbazirea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,14 @@ int		init_philo(t_param *param, t_philo **philo, t_fork **fork);
 int		init_philo_param(t_param *param, t_fork **fork, t_philo **philo);
 
 //	thread.c
-int		init_thread(t_philo *philo[]);
+int		init_thread(t_philo **philo, t_param *param);
 void	*life(void *phil);
-//void	*check_life();
+void	life2(t_philo *philo);
+void	*check_life(void *phil);
+int		check_life2(t_philo *philo, long time);
+
+//	thread_2.c
+int		stay_philo_end(t_philo **philo, t_param *param);
 
 //	utils.c
 long	get_time(void);

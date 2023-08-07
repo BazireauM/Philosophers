@@ -4,6 +4,7 @@ SRCS	=	srcs/init_all.c\
 			srcs/utils.c\
 			srcs/utils_2.c\
 			srcs/thread.c\
+			srcs/thread_2.c\
 			main.c
 
 OBJS	=	$(SRCS:.c=.o)
