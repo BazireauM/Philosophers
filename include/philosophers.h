@@ -6,7 +6,7 @@
 /*   By: mbazirea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 12:36:43 by mbazirea          #+#    #+#             */
-/*   Updated: 2023/08/07 06:20:04 by mbazirea         ###   ########.fr       */
+/*   Updated: 2023/08/09 06:29:42 by mbazirea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ typedef struct s_philo
 	pthread_mutex_t	m_last_eat;
 	pthread_t		t_philo;
 }	t_philo;
+
+//	main.c
+void	free_philo_fork(t_philo *philo, t_fork *fork);
+int		stop_thread(t_philo *philo);
 
 //	init_all.c
 int		init_param(t_param *param, int argc, char *argv[]);
