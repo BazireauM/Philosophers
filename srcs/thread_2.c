@@ -6,7 +6,7 @@
 /*   By: mbazirea <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 06:17:59 by mbazirea          #+#    #+#             */
-/*   Updated: 2023/08/07 06:47:49 by mbazirea         ###   ########.fr       */
+/*   Updated: 2023/08/11 14:32:05 by mbazirea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ int	stay_philo_end(t_philo **philo, t_param *param)
 			r = 1;
 		i++;
 	}
+	pthread_join(param->t_death, NULL);
 	return (r);
 }

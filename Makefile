@@ -12,6 +12,7 @@ OBJS	=	$(SRCS:.c=.o)
 CC		=	gcc
 
 CFLAGS	=	-Wall -Werror -Wextra -I include -pthread
+#CFLAGS	=	-Wall -Werror -Wextra -I include -pthread -fsanitize=thread
 
 rm		=	rm -Rf
 
