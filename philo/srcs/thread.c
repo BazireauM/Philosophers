@@ -54,7 +54,9 @@ void	life2(t_philo *philo)
 {
 	write_status("is eating", philo);
 	stay(philo->param->time_to_eat);
+	pthread_mutex_lock(&(philo->m_last_eat));
 	philo->n_eat += 1;
+	pthread_mutex_unlock(&(philo->m_last_eat));
 	pthread_mutex_lock(&(philo->m_last_eat));
 	philo->last_eat = get_time() - philo->param->time;
 	pthread_mutex_unlock(&(philo->m_last_eat));

@@ -68,8 +68,10 @@ int all_eat(t_param *param, t_philo **philo)
 	while (i < param->number_of_philosopher)
 	{
 		phil = &(*philo)[i];
+		pthread_mutex_lock(&(phil->m_last_eat));
 		if (phil->n_eat == param->max_eat)
 			x++;
+		pthread_mutex_unlock(&(phil->m_last_eat));
 		i++;
 	}
 	if (x == i)
