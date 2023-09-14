@@ -82,5 +82,6 @@ void	write_status(char *s, t_philo *philo);
 //	utils_2.c
 void	use_fork(int id, t_philo *philo);
 void	stop_use_fork(int id, t_philo *philo);
+int		all_eat(t_param *param, t_philo **philo);
 
 #endif

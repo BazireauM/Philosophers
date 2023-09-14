@@ -56,3 +56,23 @@ void	stop_use_fork(int id, t_philo *philo)
 	fork->use = 0;
 	pthread_mutex_unlock(&(fork->lock));
 }
+
+int all_eat(t_param *param, t_philo **philo)
+{
+	int i;
+	int x;
+	t_philo *phil;
+
+	i = 0;
+	x = 0;
+	while (i < param->number_of_philosopher)
+	{
+		phil = &(*philo)[i];
+		if (phil->n_eat == param->max_eat)
+			x++;
+		i++;
+	}
+	if (x == i)
+		return (1);
+	return (0);
+}

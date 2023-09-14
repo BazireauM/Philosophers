@@ -62,6 +62,9 @@ void	life2(t_philo *philo)
 	stop_use_fork(1, philo);
 	write_status("is sleeping", philo);
 	stay(philo->param->time_to_sleep);
+	write_status("is thinking", philo);
+	if (philo->param->time_to_die - (philo->param->time_to_eat + philo->param->time_to_sleep) > 0)
+		usleep((philo->param->time_to_die - (philo->param->time_to_eat + philo->param->time_to_sleep)) / 3);
 }
 
 void	*check_life(void *phil)
@@ -83,6 +86,8 @@ void	*check_life(void *phil)
 				return (NULL);
 			i++;
 		}
+		if (all_eat(param, philo))
+			return (NULL);
 		stay(1);
 	}
 	return (NULL);
@@ -97,13 +102,13 @@ int	check_life2(t_philo *philo, long time)
 	pthread_mutex_lock(&(philo->m_last_eat));
 	last_eat = time - philo->last_eat;
 	pthread_mutex_unlock(&(philo->m_last_eat));
-	if (last_eat > philo->param->time_to_die)
+	if (last_eat > philo->param->time_to_die && !(philo->param->max_eat != -42 && philo->n_eat >= philo->param->max_eat))
 	{
 		pthread_mutex_lock(&(philo->param->m_log));
 		pthread_mutex_lock(&(philo->param->m_dead));
 		philo->param->dead = 1;
 		pthread_mutex_unlock(&(philo->param->m_dead));
-		printf("%09ld %d died\n", time, philo->id);
+		printf("%09ld %d died\n", time, philo->id + 1);
 		pthread_mutex_unlock(&(philo->param->m_log));
 		dead = 1;
 	}

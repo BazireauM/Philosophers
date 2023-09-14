@@ -76,6 +76,6 @@ void	write_status(char *s, t_philo *philo)
 	i = get_time() - philo->param->time;
 	pthread_mutex_lock(&(philo->param->m_log));
 	if (!test_death_philo(philo))
-		printf("%09ld %d %s\n", i, philo->id, s);
+		printf("%09ld %d %s\n", i, philo->id + 1, s);
 	pthread_mutex_unlock(&(philo->param->m_log));
 }
